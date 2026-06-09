@@ -188,7 +188,11 @@ header {
     display: flex;
     align-items: center;
     gap: 6px;
-    color: var(--white);
+    color: var(--black);
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
     .icon {
         aspect-ratio: 1;
     }
@@ -197,63 +201,35 @@ header {
 /*-- Menu Mobile --*/
 .mb-menu-link {
     @include transition3;
-    font-weight: 550;
+    font-weight: 600;
     position: relative;
     width: 100%;
-    pointer-events: none;
-    overflow: hidden;
-    font-size: 40px;
-    line-height: 53px;
-    >* {
-        pointer-events: all;
-    }
-
-    .infiniteSlide_text_main {
-        position: absolute;
-        top: 40%;
-        left: 0;
-        transform: translateY(-50%);
-        @include hidden;
-        @include transition3;
-
-        .infiniteSlide_text {
-            gap: 40px;
-        }
-
-        &::before {
-            content: "";
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(90deg, #000 0%, rgba(255, 255, 255, 0) 20%, rgba(255, 255, 255, 0) 80%, rgba(255, 255, 255, 0) 100%);
-            z-index: 2;
-        }
-    }
+    display: block;
+    font-size: 20px;
+    line-height: 28px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--neutral-200);
 
     .text {
-        color: var(--white);
+        color: var(--black);
         @include transition3;
     }
 
-    @include res(sm, min) {
-
-        &:hover {
-            .text {
-                color: var(--brand)
-            }
-
-            .infiniteSlide_text_main {
-                @include visible;
-                top: 50%;
-            }
+    &:hover,
+    &.active {
+        .text {
+            color: var(--brand);
         }
     }
 }
 
 .nav-ul-mb {
     display: grid;
+    gap: 0;
+    width: 100%;
 
     li {
-        text-align: end;
+        text-align: start;
     }
 
     .has-sub-menu {
@@ -298,44 +274,58 @@ header {
 }
 
 .offcanvas-menu {
-    height: 100vh !important;
-    backdrop-filter: blur(4px);
     position: fixed;
     inset: 0;
-    background-color: #0000008F;
     z-index: 3000;
-
+    background-color: rgba(0, 0, 0, 0.45);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    @include transition3;
 
     .offcanvas-content {
-        padding-top: 36px;
-        padding-bottom: 60px;
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: min(320px, 88vw);
+        max-width: 100%;
         height: 100%;
+        background-color: #fff;
+        box-shadow: -8px 0 32px rgba(0, 0, 0, 0.12);
+        padding: 24px;
+        transform: translateX(100%);
+        @include transition5;
+        overflow-y: auto;
     }
 
     .offcanvas-content_wrapin {
         display: flex;
         flex-direction: column;
-        height: 100%;
-        gap: 20px;
+        min-height: 100%;
+        gap: 24px;
     }
 
     .canvas_head {
         display: flex;
         justify-content: space-between;
-        align-items: start;
+        align-items: center;
         flex-wrap: wrap;
+        padding-bottom: 8px;
+        border-bottom: 1px solid var(--neutral-200);
     }
 
     .canvas_center {
         flex: 1;
         display: flex;
         flex-direction: column;
-        justify-content: center;
+        justify-content: flex-start;
         overflow-y: auto;
-        padding-right: 5px;
+        padding-right: 4px;
+
         &::-webkit-scrollbar {
             width: 2px;
         }
+
         &::-webkit-scrollbar-thumb {
             background-color: var(--neutral-400);
         }
@@ -343,10 +333,10 @@ header {
 
     .canvas_foot {
         display: flex;
-        justify-content: space-between;
-        align-items: end;
-        flex-wrap: wrap;
-        gap: 12px;
+        flex-direction: column;
+        gap: 16px;
+        padding-top: 16px;
+        border-top: 1px solid var(--neutral-200);
 
         .left {
             display: flex;
@@ -356,121 +346,25 @@ header {
 
         .right {
             display: flex;
-            gap: 40px;
-            align-items: center;
-            flex-wrap: wrap;
+            flex-direction: column;
+            gap: 8px;
+            align-items: flex-start;
         }
     }
 
-    &.style-2 {
-        .infiniteSlide_text_main {
-            display: none;
+    &.show {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: all;
+
+        .offcanvas-content {
+            transform: translateX(0);
         }
     }
 
     @include res(xl) {
         .offcanvas-content {
-            padding-top: 30px;
-            padding-bottom: 30px;
-        }
-
-        .canvas_foot {
-            .right {
-                gap: 24px;
-            }
-        }
-    }
-}
-
-.offcanvas-menu {
-    @include transition5;
-    top: 100%;
-
-    .canvas_head {
-        @include transition3;
-        @include hidden;
-        transform: translateY(-20px)
-    }
-
-    .nav-ul-mb {
-        li {
-            overflow: hidden;
-        }
-
-        .item {
-            @include transition5;
-            @include hidden;
-            transform: translateY(100px);
-            display: flex;
-        }
-    }
-
-    .canvas_foot {
-        @include transition3;
-        @include hidden;
-        transform: translateY(20px)
-    }
-
-    &.show {
-        top: 0;
-
-        .canvas_head {
-            @include visible;
-            transform: translateY(0);
-            transition-delay: 0.5s;
-
-        }
-
-        .canvas_foot {
-            @include visible;
-            transform: translateY(0);
-            transition-delay: 0.6s;
-        }
-
-        .nav-ul-mb {
-            li {
-                .item {
-                    transform: translateY(0px);
-                    @include visible;
-                }
-
-
-                &:nth-child(1) {
-                    .item {
-                        transition-delay: 0.5s;
-                    }
-                }
-
-                &:nth-child(2) {
-                    .item {
-                        transition-delay: 0.6s;
-                    }
-                }
-
-                &:nth-child(3) {
-                    .item {
-                        transition-delay: 0.7s;
-                    }
-                }
-
-                &:nth-child(4) {
-                    .item {
-                        transition-delay: 0.8s;
-                    }
-                }
-
-                &:nth-child(5) {
-                    .item {
-                        transition-delay: 1s;
-                    }
-                }
-
-                &:nth-child(6) {
-                    .item {
-                        transition-delay: 1.2s;
-                    }
-                }
-            }
+            padding: 20px;
         }
     }
 }

@@ -189,15 +189,26 @@
     /* Open Menu
     -------------------------------------------------------------------------*/
     var openMbMenu = () => {
-        $(".open-mb-menu").on("click", function () {
+        const closeMenu = () => {
+            $(".offcanvas-menu").removeClass("show");
+            $("body").removeClass("overflow-hidden");
+        };
+
+        $(".open-mb-menu").on("click", function (e) {
+            e.preventDefault();
             $(".offcanvas-menu").addClass("show");
-            $("body").toggleClass("overflow-hidden");
+            $("body").addClass("overflow-hidden");
         });
 
-        $(".close-mb-menu").on("click", function () {
-            $(".offcanvas-menu").removeClass("show");
-            $("body").toggleClass("overflow-hidden");
+        $(".close-mb-menu").on("click", closeMenu);
+
+        $(".offcanvas-menu").on("click", function (e) {
+            if ($(e.target).is(".offcanvas-menu")) {
+                closeMenu();
+            }
         });
+
+        $(".offcanvas-menu .mb-menu-link, .offcanvas-menu .tf-btn").on("click", closeMenu);
     };
     /* switchprice
     -------------------------------------------------------------------------*/
