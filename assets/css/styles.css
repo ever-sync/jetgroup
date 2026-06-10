@@ -5030,6 +5030,11 @@ button.animate-btn::after,
 .partner-wrap .infiniteSlide_partner {
   gap: 64px;
 }
+.partner-wrap .infiniteSlide_partner img {
+  height: 48px;
+  width: auto;
+  object-fit: contain;
+}
 .partner-wrap::before {
   position: absolute;
   content: "";
@@ -9573,6 +9578,56 @@ button.animate-btn::after,
   font-size: 24px;
   color: var(--brand);
   flex-shrink: 0;
+}
+.accordion-faq_item .accordion-title .company-logo {
+  height: 64px;
+  width: auto;
+  max-width: none;
+  object-fit: contain;
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  -ms-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+.accordion-faq_item .accordion-title .company-logo--open {
+  display: none;
+}
+.accordion-faq_item .accordion-action:not(.collapsed) .company-logo--closed {
+  display: none;
+}
+.accordion-faq_item .accordion-action:not(.collapsed) .company-logo--open {
+  display: block;
+}
+.accordion-faq_item .accordion-title .company-logo--stacked {
+  height: 72px;
+  width: auto;
+  max-width: none;
+}
+@media (max-width: 767px) {
+  .accordion-faq_item .accordion-title .company-logo {
+    height: 48px;
+  }
+  .accordion-faq_item .accordion-title .company-logo--stacked {
+    height: 56px;
+  }
+}
+.accordion-faq_item .accordion-action:not(.collapsed) .accordion-title .company-logo {
+  height: 96px;
+  max-width: none;
+}
+.accordion-faq_item .accordion-action:not(.collapsed) .accordion-title .company-logo--stacked {
+  height: 120px;
+  width: auto;
+  max-width: none;
+}
+@media (max-width: 767px) {
+  .accordion-faq_item .accordion-action:not(.collapsed) .accordion-title .company-logo {
+    height: 72px;
+  }
+  .accordion-faq_item .accordion-action:not(.collapsed) .accordion-title .company-logo--stacked {
+    height: 96px;
+  }
 }
 @media (max-width: 767px) {
   .accordion-faq_item .accordion-title {

@@ -56,6 +56,48 @@
         br {
             display: none;
         }
+
+        .company-title {
+            display: inline-flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .company-icon {
+            font-size: 24px;
+            color: var(--brand);
+            flex-shrink: 0;
+
+            @include res(md) {
+                font-size: 20px;
+            }
+        }
+
+        .company-logo {
+            height: 64px;
+            width: auto;
+            max-width: none;
+            object-fit: contain;
+            @include transition3;
+
+            @include res(md) {
+                height: 48px;
+            }
+
+            &--open {
+                display: none;
+            }
+
+            &--stacked {
+                height: 72px;
+                width: auto;
+                max-width: none;
+
+                @include res(md) {
+                    height: 56px;
+                }
+            }
+        }
     }
     .accordion-action {
         padding-top: 0;
@@ -84,6 +126,14 @@
             }
         }
         &:not(.collapsed) {
+            .company-logo--closed {
+                display: none;
+            }
+
+            .company-logo--open {
+                display: block;
+            }
+
             .accordion-title {
                 font-size: 48px;
                 line-height: 56px;
@@ -103,6 +153,25 @@
                 }
                 .num {
                     letter-spacing: 0;
+                }
+
+                .company-logo {
+                    height: 96px;
+                    max-width: none;
+
+                    @include res(md) {
+                        height: 72px;
+                    }
+
+                    &--stacked {
+                        height: 120px;
+                        width: auto;
+                        max-width: none;
+
+                        @include res(md) {
+                            height: 96px;
+                        }
+                    }
                 }
             }
             &::before {
