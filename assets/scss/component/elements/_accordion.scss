@@ -186,6 +186,19 @@
             padding-top: 24px;
             padding-bottom: 96px;
         }
+        .accordion-text {
+            display: grid;
+            gap: 16px;
+        }
+        .accordion-actions {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 20px;
+        }
+        .accordion-site-btn {
+            flex-shrink: 0;
+        }
     }
     .accordion-text {
         width: 100%;

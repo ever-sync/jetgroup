@@ -310,4 +310,23 @@ select {
         padding: 16px 0;
         margin-bottom: 38px;
     }
+    .form-honey {
+        position: absolute;
+        left: -9999px;
+        width: 1px;
+        height: 1px;
+        opacity: 0;
+        pointer-events: none;
+    }
+    .form-contact-status {
+        margin-bottom: 16px;
+        font-size: 14px;
+        line-height: 1.5;
+        &.is-success {
+            color: #0f766e;
+        }
+        &.is-error {
+            color: #b42318;
+        }
+    }
 }

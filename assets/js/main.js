@@ -3,13 +3,12 @@
  *  updateClock
  *  cursorTrail
  *  goTop
- *  settingColor
  *  openMbMenu
  *  switchPrice
- *  services_btn
  *  counter
  *  dot
  *  viewbox
+ *  contactForm
  */
 
 (function ($) {
@@ -157,35 +156,6 @@
         });
         
     };
-    /* Setting Color
-    -------------------------------------------------------------------------*/
-    const settingColor = () => {
-        if (!$(".settings-color").length) return;
-
-        const COLOR_KEY = "selectedColorIndex";
-
-        const savedIndex = localStorage.getItem(COLOR_KEY);
-
-        if (savedIndex !== null) {
-            setColor(savedIndex);
-            setActiveItem(savedIndex - 1);
-        }
-
-        $(".choose-item").on("click", function () {
-            const index = $(this).index();
-            setColor(index + 1);
-            setActiveItem(index);
-            localStorage.setItem(COLOR_KEY, index + 1);
-        });
-
-        function setColor(index) {
-            $("body").attr("data-color-primary", "color-primary-" + index);
-        }
-
-        function setActiveItem(index) {
-            $(".choose-item").removeClass("active").eq(index).addClass("active");
-        }
-    };
     /* Open Menu
     -------------------------------------------------------------------------*/
     var openMbMenu = () => {
@@ -236,23 +206,8 @@
             updatePrices(false);
         }
     };
-    /* services_btn
+    /* counter
     -------------------------------------------------------------------------*/
-    var services_btn = () => {
-        $('.services-image-btn').on('click', function(){
-            if(!$(this).hasClass('active-img')) {
-                $('.services-image-btn').removeClass('active-img');
-                $(this).addClass('active-img');
-    
-                const newImg = $(this).data('img');
-                $('.services-image').find('img').css('opacity', 0);
-                setTimeout(() => {
-                  $('.services-image').find('img').attr('src', newImg).css('opacity', 1);
-                }, 200);
-            }
-        });
-    };
-    // counter
     var counter = function () {
         if ($(document.body).hasClass("counter-scroll")) {
           var a = 0;
@@ -318,18 +273,81 @@
         });
     };
 
+    /* contactForm
+    -------------------------------------------------------------------------*/
+    var contactForm = function () {
+        var $form = $("#contact-form");
+        if (!$form.length) return;
+
+        $form.on("submit", function (event) {
+            event.preventDefault();
+
+            var $submit = $("#contact-submit");
+            var $status = $("#contact-form-status");
+            var honey = $.trim($form.find('[name="_honey"]').val());
+
+            if (honey) return;
+
+            var payload = {
+                name: $.trim($("#contact-name").val()),
+                contact: $.trim($("#contact-info").val()),
+                message: $.trim($("#contact-message").val()),
+                _subject: "Novo lead - Jet Group BR",
+                _template: "table",
+                _captcha: "false",
+            };
+
+            if (!payload.name || !payload.contact || !payload.message) {
+                $status
+                    .removeClass("is-success")
+                    .addClass("is-error")
+                    .text("Preencha todos os campos obrigatórios.")
+                    .prop("hidden", false);
+                return;
+            }
+
+            $submit.prop("disabled", true).text("Enviando...");
+            $status.prop("hidden", true).removeClass("is-success is-error");
+
+            $.ajax({
+                url: "https://formsubmit.co/ajax/contato@jetgroupbr.com",
+                method: "POST",
+                data: JSON.stringify(payload),
+                contentType: "application/json",
+                dataType: "json",
+            })
+                .done(function () {
+                    $form[0].reset();
+                    $status
+                        .removeClass("is-error")
+                        .addClass("is-success")
+                        .text("Mensagem enviada com sucesso. Em breve entraremos em contato.")
+                        .prop("hidden", false);
+                })
+                .fail(function () {
+                    $status
+                        .removeClass("is-success")
+                        .addClass("is-error")
+                        .text("Não foi possível enviar agora. Tente novamente ou escreva para contato@jetgroupbr.com.")
+                        .prop("hidden", false);
+                })
+                .always(function () {
+                    $submit.prop("disabled", false).text("Enviar mensagem");
+                });
+        });
+    };
+
     // Dom Ready
     $(function () {
         infiniteSlide();
         updateClock();
         cursorTrail();
         goTop();
-        settingColor();
         openMbMenu();
         switchPrice();
-        services_btn();
         counter();
         dot();
         viewbox();
+        contactForm();
     });
 })(jQuery);
