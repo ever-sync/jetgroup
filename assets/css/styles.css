@@ -1825,7 +1825,8 @@ header.header-sticky {
 }
 
 @media (max-width: 991px) {
-  .tf-header .box-navigation {
+  .tf-header .box-navigation,
+  .tf-header.header2 .box-navigation {
     display: none;
   }
 }
