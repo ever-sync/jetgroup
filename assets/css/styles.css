@@ -5059,7 +5059,7 @@ button.animate-btn::after,
   align-items: center;
   justify-content: center;
   width: 100%;
-  padding: 60px 0;
+  padding: 28px 0 60px;
   position: relative;
 }
 .partner-wrap .infiniteSlide_tech_main {
