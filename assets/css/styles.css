@@ -1825,7 +1825,8 @@ header.header-sticky {
 }
 
 @media (max-width: 991px) {
-  .tf-header .box-navigation {
+  .tf-header .box-navigation,
+  .tf-header.header2 .box-navigation {
     display: none;
   }
 }
@@ -5058,7 +5059,7 @@ button.animate-btn::after,
   align-items: center;
   justify-content: center;
   width: 100%;
-  padding: 60px 0;
+  padding: 28px 0 60px;
   position: relative;
 }
 .partner-wrap .infiniteSlide_tech_main {
@@ -6876,6 +6877,7 @@ button.animate-btn::after,
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
   width: 64px;
   height: 64px;
   font-size: 28px;
